@@ -11,6 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccb000/39/d6266214/CustomerManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccb000/5d/30459d7d/RentBillScreen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccb000/65/f7657661/Customer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccb000/c5/a451cb52/CPlayerData.cs" root0="SKIP_HIGHLIGHTING" />
@@ -75,7 +76,7 @@
       <workItem from="1740278664126" duration="3209000" />
       <workItem from="1740335862706" duration="2152000" />
       <workItem from="1740362676964" duration="57000" />
-      <workItem from="1740366097661" duration="2471000" />
+      <workItem from="1740366097661" duration="9544000" />
     </task>
     <servers />
   </component>

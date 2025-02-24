@@ -25,7 +25,7 @@ public class CustomersPatch
     private static void EvaluateMaxCustomerCountPostfix(ref int ___m_CustomerCountMax, ref int ___m_PlayTableSitdownCustomerCount, ref int ___m_TotalCurrentCustomerCount)
     {
         
-        if (Config.Instance.IsShopCustomerCountPatch)
+        if (!Config.Instance.IsShopCustomerCountPatch)
         {
             Debug.Log("[Post - EvaluateMaxCustomerCount] Plugin is disabled");
         }

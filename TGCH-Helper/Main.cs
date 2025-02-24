@@ -44,15 +44,11 @@ public class Main : BaseUnityPlugin
             ToggleWindow();
         }
 
-        if (Loops.isCleanCustomersLoopEnabled)
-        {
+        if (!Loops.isCleanCustomersCoroutineRunning)
             StartCoroutine(Loops.CleanCustomers());
-        }
         
-        if (Loops.isPayBillsLoopEnabled)
-        {
+        if (!Loops.isPayBillsCoroutineRunning)
             StartCoroutine(Loops.PayBills());
-        }
     }
 
     private void OnGUI()
@@ -114,26 +110,35 @@ public class Main : BaseUnityPlugin
             }
         }
 
-        Skin.BoolButton(ref Loops.isCleanCustomersLoopEnabled, "CustomersPatch Cleaner Loop");
-        Skin.BoolButton(ref Loops.isPayBillsLoopEnabled, "Pay Bills Loop");
+        if (Skin.BoolButton(ref Loops.isCleanCustomersLoopEnabled, "CustomersPatch Cleaner Loop"))
+        {
+            if (Loops.isCleanCustomersCoroutineRunning)
+                Loops.isCleanCustomersCoroutineRunning = false;
+        }
+        
+        if (Skin.BoolButton(ref Loops.IsPayBillsLoopEnabled, "Pay Bills Loop"))
+        {
+            if (Loops.isPayBillsCoroutineRunning)
+                Loops.isPayBillsCoroutineRunning = false;
+        }
         
         Color previousColor = GUI.backgroundColor;
         GUI.backgroundColor = Utils.Config.Instance.IsCustomerPatch ? Color.green : Color.red;
-        if (GUILayout.Button("CustomersPatch Patch"))
+        if (GUILayout.Button("Customers Smell Patch"))
         {
             Utils.Config.Instance.IsCustomerPatch = !Utils.Config.Instance.IsCustomerPatch;
         }
         GUI.backgroundColor = previousColor;
         
         GUI.backgroundColor = Utils.Config.Instance.IsWorkerPatch ? Color.green : Color.red;
-        if (GUILayout.Button("Worker Patch"))
+        if (GUILayout.Button("Worker Stats Patch"))
         {
             Utils.Config.Instance.IsWorkerPatch = !Utils.Config.Instance.IsWorkerPatch;
         }
         GUI.backgroundColor = previousColor;
         
         GUI.backgroundColor = Utils.Config.Instance.IsShopCustomerCountPatch ? Color.green : Color.red;
-        if (GUILayout.Button("Shop Customer Patch"))
+        if (GUILayout.Button("Customer Count Patch"))
         {
             Utils.Config.Instance.IsShopCustomerCountPatch = !Utils.Config.Instance.IsShopCustomerCountPatch;
         }

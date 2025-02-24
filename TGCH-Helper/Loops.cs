@@ -8,65 +8,80 @@ namespace TGCH_Helper;
 
 public static class Loops
 {
-    public static bool isPayBillsLoopEnabled;
+    public static bool IsPayBillsLoopEnabled;
     public static bool isCleanCustomersLoopEnabled;
-    private static Scene currentScene_ = SceneManager.GetActiveScene();
+    public static bool isPayBillsCoroutineRunning;
+    public static bool isCleanCustomersCoroutineRunning;
     
     
     public static IEnumerator PayBills()
     {
-        yield return new WaitForSeconds(30f);
-            
-        if (!isPayBillsLoopEnabled)
-            yield break;
-            
-        if (currentScene_.name != "Start")
-            yield break;
-
-        if (!isPayBillsLoopEnabled)
-            yield break;
+        isPayBillsCoroutineRunning = true;
         
-        try
+        while (isPayBillsCoroutineRunning)
         {
-            CPlayerData.SetBill(EBillType.Electric, 0, 0f);
-            CPlayerData.SetBill(EBillType.Rent, 0, 0f);
-            CPlayerData.SetBill(EBillType.Employee, 0, 0f);
-            Debug.Log("Bills paid.");
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("Error in Pay Bills: " + e.Message);
+            yield return new WaitForSeconds(20f);
+        
+            Scene currentScene_ = SceneManager.GetActiveScene();
+        
+            if (!IsPayBillsLoopEnabled)
+                yield break;
+            
+            if (currentScene_.name != "Start")
+                yield break;
+
+            if (!IsPayBillsLoopEnabled)
+                yield break;
+        
+            try
+            {
+                CPlayerData.SetBill(EBillType.Electric, 0, 0f);
+                CPlayerData.SetBill(EBillType.Rent, 0, 0f);
+                CPlayerData.SetBill(EBillType.Employee, 0, 0f);
+                Debug.Log("Bills paid.");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error in Pay Bills: " + e.Message);
+            }
         }
     }
     
     public static IEnumerator CleanCustomers()
     {
-        yield return new WaitForSeconds(30f);
-        
-        if (!isCleanCustomersLoopEnabled)
-            yield break;
-       
-        if (currentScene_.name != "Start") 
-            yield break;
+        isCleanCustomersCoroutineRunning = true;
 
-        if (!isCleanCustomersLoopEnabled)
-            yield break;
+        while (isCleanCustomersCoroutineRunning)
+        {
+            yield return new WaitForSeconds(15f);
         
-        try
-        {
-            List<Customer> customers = CustomerManager.Instance.GetCustomerList();
-            foreach (Customer customer in customers)
+            Scene currentScene_ = SceneManager.GetActiveScene();
+        
+            if (!isCleanCustomersLoopEnabled)
+                isCleanCustomersCoroutineRunning = false;
+       
+            if (currentScene_.name != "Start") 
+                yield break;
+
+            if (!isCleanCustomersLoopEnabled)
+                yield break;
+        
+            try
             {
-                if (customer == null)
-                    continue;
+                List<Customer> customers = CustomerManager.Instance.GetCustomerList();
+                foreach (Customer customer in customers)
+                {
+                    if (customer == null)
+                        continue;
                     
-                customer.DeodorantSprayCheck(customer.transform.position, 10000f, 10000);
-                Debug.Log($"{customer.name} cleaned.");
+                    customer.DeodorantSprayCheck(customer.transform.position, 10000f, 10000);
+                    Debug.Log($"{customer.name} cleaned.");
+                }
             }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("Error in CustomersPatch Cleaner: " + e.Message);
+            catch (Exception e)
+            {
+                Debug.LogError("Error in CustomersPatch Cleaner: " + e.Message);
+            }
         }
     }
 }
