@@ -27,7 +27,7 @@ public class Main : BaseUnityPlugin
     
     private void Start()
     {
-        Debug.Log("TGCH-Helper started.");
+        Debug.Log("TCG-Helper started.");
         Instance = Utils.Config.Instance;
         Instance.TryLoadConfig();
         Patch.Init();
@@ -59,7 +59,7 @@ public class Main : BaseUnityPlugin
         if (Skin.UniversalSkin != null)
             GUI.skin = Skin.UniversalSkin;
         
-        windowRect_ = GUILayout.Window(GetHashCode(), windowRect_, DrawWindow, "TGCH-Helper");
+        windowRect_ = GUILayout.Window(GetHashCode(), windowRect_, DrawWindow, "TCG-Helper");
     }
 
     private void DrawWindow(int windowID)

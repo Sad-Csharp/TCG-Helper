@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TGCH-Helper", "TGCH-Helper\TGCH-Helper.csproj", "{8A9DA3E1-B877-41D0-96AF-C9964E63156A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCG-Helper", "TCG-Helper\TCG-Helper.csproj", "{8A9DA3E1-B877-41D0-96AF-C9964E63156A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
