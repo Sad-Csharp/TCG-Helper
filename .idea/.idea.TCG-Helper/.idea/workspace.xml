@@ -4,22 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e44b3dd-ed06-4fb6-9fff-766c2ca1e74e" name="Changes" comment="" />
+    <list default="true" id="8e44b3dd-ed06-4fb6-9fff-766c2ca1e74e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TCG-Helper/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TCG-Helper/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TCG-Helper/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TCG-Helper/Loops.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TCG-Helper/Loops.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TCG-Helper/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TCG-Helper/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TCG-Helper/Patcher/CustomersPatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TCG-Helper/Patcher/CustomersPatch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TCG-Helper/Patcher/Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TCG-Helper/Patcher/Patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TCG-Helper/Patcher/WorkersPatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TCG-Helper/Patcher/WorkersPatch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TCG-Helper/TCG-Helper.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TCG-Helper/TCG-Helper.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TCG-Helper/Utils/Config.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TCG-Helper/Utils/Config.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TCG-Helper/Utils/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TCG-Helper/Utils/Extensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TCG-Helper/Utils/SkinHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TCG-Helper/Utils/SkinHelper.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccb000/39/d6266214/CustomerManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccb000/5d/30459d7d/RentBillScreen.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccb000/65/f7657661/Customer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccb000/c5/a451cb52/CPlayerData.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccc000/9f/8e774bf2/Customer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TGCH-Helper/Main.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TGCH-Helper/Patcher/CustomersPatch.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TGCH-Helper/Patcher/WorkersPatch.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TGCH-Helper/Utils/Extensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccb000/58/1bcbbf12/Worker.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TCG-Helper/Main.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TCG-Helper/Utils/Extensions.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -32,14 +41,16 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;RiderCSharpLiveTemplatesSettingsId&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -77,6 +88,23 @@
       <workItem from="1740335862706" duration="2152000" />
       <workItem from="1740362676964" duration="57000" />
       <workItem from="1740366097661" duration="9544000" />
+      <workItem from="1740443422975" duration="368000" />
+      <workItem from="1740443815599" duration="287000" />
+      <workItem from="1740508896378" duration="600000" />
+      <workItem from="1740509587560" duration="51000" />
+      <workItem from="1740698445311" duration="5072000" />
+      <workItem from="1740698081017" duration="13000" />
+      <workItem from="1740768211330" duration="9518000" />
+      <workItem from="1740779924532" duration="294000" />
+      <workItem from="1740780255699" duration="33000" />
+      <workItem from="1740780318633" duration="23000" />
+      <workItem from="1740781088306" duration="18000" />
+      <workItem from="1740781218596" duration="43000" />
+      <workItem from="1740781310350" duration="41000" />
+      <workItem from="1740781460367" duration="125000" />
+      <workItem from="1740781763627" duration="66000" />
+      <workItem from="1740782070963" duration="110000" />
+      <workItem from="1740782509320" duration="27000" />
     </task>
     <servers />
   </component>

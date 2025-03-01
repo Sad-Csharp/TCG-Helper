@@ -4,33 +4,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TGCH_Helper;
+namespace TCG_Helper;
 
 public static class Loops
 {
     public static bool IsPayBillsLoopEnabled;
-    public static bool isCleanCustomersLoopEnabled;
-    public static bool isPayBillsCoroutineRunning;
-    public static bool isCleanCustomersCoroutineRunning;
+    public static bool IsCleanCustomersLoopEnabled;
+    public static bool IsPayBillsCoroutineRunning;
+    public static bool IsCleanCustomersCoroutineRunning;
     
     
     public static IEnumerator PayBills()
     {
-        isPayBillsCoroutineRunning = true;
-        
-        while (isPayBillsCoroutineRunning)
+        IsPayBillsCoroutineRunning = true;
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        while (IsPayBillsCoroutineRunning)
         {
             yield return new WaitForSeconds(20f);
-        
-            Scene currentScene_ = SceneManager.GetActiveScene();
-        
-            if (!IsPayBillsLoopEnabled)
-                yield break;
-            
-            if (currentScene_.name != "Start")
-                yield break;
 
             if (!IsPayBillsLoopEnabled)
+            {
+                IsPayBillsCoroutineRunning = false;
+                IsPayBillsLoopEnabled = false;
+                yield break;
+            }
+            
+            if (currentScene.name != "Start")
                 yield break;
         
             try
@@ -49,22 +49,23 @@ public static class Loops
     
     public static IEnumerator CleanCustomers()
     {
-        isCleanCustomersCoroutineRunning = true;
+        IsCleanCustomersCoroutineRunning = true;
 
-        while (isCleanCustomersCoroutineRunning)
+        while (IsCleanCustomersCoroutineRunning)
         {
             yield return new WaitForSeconds(15f);
         
-            Scene currentScene_ = SceneManager.GetActiveScene();
-        
-            if (!isCleanCustomersLoopEnabled)
-                isCleanCustomersCoroutineRunning = false;
-       
-            if (currentScene_.name != "Start") 
-                yield break;
+            Scene currentScene = SceneManager.GetActiveScene();
 
-            if (!isCleanCustomersLoopEnabled)
-                yield break;
+            if (!IsCleanCustomersLoopEnabled)
+            {
+                IsCleanCustomersCoroutineRunning = false;
+                IsCleanCustomersLoopEnabled = false;
+                break;
+            }
+            
+            if (currentScene.name != "Start") 
+                break;
         
             try
             {
@@ -80,7 +81,7 @@ public static class Loops
             }
             catch (Exception e)
             {
-                Debug.LogError("Error in CustomersPatch Cleaner: " + e.Message);
+                Debug.LogError("Error in Customers Loop Cleaner: " + e.Message);
             }
         }
     }

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace TGCH_Helper.Utils;
+namespace TCG_Helper.Utils;
 
 public static class Extensions
 {

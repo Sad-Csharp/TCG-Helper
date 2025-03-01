@@ -2,7 +2,7 @@ using System;
 using HarmonyLib;
 using UnityEngine;
 
-namespace TGCH_Helper.Patcher;
+namespace TCG_Helper.Patcher;
 
 public static class Patch
 {

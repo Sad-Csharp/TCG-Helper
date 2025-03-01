@@ -1,14 +1,14 @@
 using System.IO;
 using UnityEngine;
 
-namespace TGCH_Helper.Utils;
+namespace TCG_Helper.Utils;
 
 public class Config
 {
     public static Config Instance { get; private set; }
-    private static readonly string ConfigPath = Path.Combine(Directory.GetParent(Application.dataPath)?.FullName ?? string.Empty, "BepInEx", "config", "TGCH.json");
-    public bool IsWorkerPatch { get; set; } = true;
-    public bool IsCustomerPatch{ get; set; } = true;
+    private static readonly string ConfigPath = Path.Combine(Directory.GetParent(Application.dataPath)?.FullName ?? string.Empty, "BepInEx", "config", "TCG-Helper.json");
+    public bool IsWorkerUpdatePatch { get; set; }
+    public bool IsCustomerSmellyPatch{ get; set; }
     public bool IsShopCustomerCountPatch { get; set; } = true;
     
     static Config()

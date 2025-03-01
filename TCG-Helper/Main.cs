@@ -1,35 +1,35 @@
 ﻿using System.Collections.Generic;
 using BepInEx;
-using TGCH_Helper.Patcher;
-using TGCH_Helper.Utils;
+using TCG_Helper.Patcher;
+using TCG_Helper.Utils;
 using UnityEngine;
 using Input = UnityEngine.Input;
-using Patch = TGCH_Helper.Patcher.Patch;
-using Skin = TGCH_Helper.Utils.SkinHelper;
+using Patch = TCG_Helper.Patcher.Patch;
+using Skin = TCG_Helper.Utils.SkinHelper;
 
-namespace TGCH_Helper;
+namespace TCG_Helper;
 
-[BepInPlugin("com.tcghelper.mod", "TCGHelper", "1.0.0")]
+[BepInPlugin("com.tcghelper.mod", "TCG-Helper", "1.0.0")]
 public class Main : BaseUnityPlugin
 {
     #region Misc
-    
-    private float setMoneyValue_;
-    private Config Instance;
+
+    private float setMoneyValue_ = 1000f;
+    private Config instance_;
     
     #endregion
     #region Window
 
     private Rect windowRect_ = new Rect(0, 0, 200, 200);
-    private bool showWirndow_;
+    private bool showWindow_;
 
     #endregion
     
     private void Start()
     {
         Debug.Log("TCG-Helper started.");
-        Instance = Utils.Config.Instance;
-        Instance.TryLoadConfig();
+        instance_ = Utils.Config.Instance;
+        instance_.TryLoadConfig();
         Patch.Init();
         Patch.TryPatch(typeof(WorkersPatch));
         Patch.TryPatch(typeof(CustomersPatch));
@@ -44,16 +44,16 @@ public class Main : BaseUnityPlugin
             ToggleWindow();
         }
 
-        if (!Loops.isCleanCustomersCoroutineRunning)
+        if (!Loops.IsCleanCustomersCoroutineRunning)
             StartCoroutine(Loops.CleanCustomers());
         
-        if (!Loops.isPayBillsCoroutineRunning)
+        if (!Loops.IsPayBillsCoroutineRunning)
             StartCoroutine(Loops.PayBills());
     }
 
     private void OnGUI()
     {
-        if (!showWirndow_)
+        if (!showWindow_)
             return;
         
         if (Skin.UniversalSkin != null)
@@ -64,7 +64,29 @@ public class Main : BaseUnityPlugin
 
     private void DrawWindow(int windowID)
     {
-        GUILayout.Label("Add Money: " + setMoneyValue_);
+        using (new GUILayout.VerticalScope("box"))
+        {
+            Color previousColor = GUI.backgroundColor;
+
+            GUILayout.Label("<b>Patches</b>");
+            
+            // Customers dont smell patch
+            GUI.backgroundColor = instance_.IsCustomerSmellyPatch ? Color.green : Color.red;
+            instance_.IsCustomerSmellyPatch = GUILayout.Toggle(instance_.IsCustomerSmellyPatch, "Customers Smell Patch");
+            GUI.backgroundColor = previousColor;
+        
+            // Workers stats (speed) patch
+            GUI.backgroundColor = instance_.IsWorkerUpdatePatch ? Color.green : Color.red;
+            instance_.IsWorkerUpdatePatch = GUILayout.Toggle(instance_.IsWorkerUpdatePatch, "Worker Update Patch");
+            GUI.backgroundColor = previousColor;
+        
+            // Shop customer count patch
+            GUI.backgroundColor = instance_.IsShopCustomerCountPatch ? Color.green : Color.red;
+            instance_.IsShopCustomerCountPatch = GUILayout.Toggle(instance_.IsShopCustomerCountPatch, "Shop Customer Count Patch");
+            GUI.backgroundColor = previousColor;
+        }
+        
+        GUILayout.Label($"Add Money: {setMoneyValue_:N0}");
         Skin.IncrementedSlider(ref setMoneyValue_, 0, 10000, 100);
         if (GUILayout.Button("Add Money"))
         {
@@ -85,7 +107,7 @@ public class Main : BaseUnityPlugin
             Debug.Log("Bills paid.");
         }
 
-        if (GUILayout.Button("Make Customers Buy"))
+        if (GUILayout.Button("Make All Customers Buy"))
         {
             List<Customer> customers = CustomerManager.Instance.GetCustomerList();
             foreach (Customer customer in customers)
@@ -98,7 +120,7 @@ public class Main : BaseUnityPlugin
             }
         }
         
-        if (GUILayout.Button("Make Customers Rich"))
+        if (GUILayout.Button("Make All Customers Rich"))
         {
             List<Customer> customers = CustomerManager.Instance.GetCustomerList();
             foreach (Customer customer in customers)
@@ -110,47 +132,25 @@ public class Main : BaseUnityPlugin
             }
         }
 
-        if (Skin.BoolButton(ref Loops.isCleanCustomersLoopEnabled, "CustomersPatch Cleaner Loop"))
+        if (Skin.BoolButton(ref Loops.IsCleanCustomersLoopEnabled, "Clean Customers Loop"))
         {
-            if (Loops.isCleanCustomersCoroutineRunning)
-                Loops.isCleanCustomersCoroutineRunning = false;
+            if (Loops.IsCleanCustomersCoroutineRunning)
+                Loops.IsCleanCustomersCoroutineRunning = false;
         }
         
         if (Skin.BoolButton(ref Loops.IsPayBillsLoopEnabled, "Pay Bills Loop"))
         {
-            if (Loops.isPayBillsCoroutineRunning)
-                Loops.isPayBillsCoroutineRunning = false;
+            if (Loops.IsPayBillsCoroutineRunning)
+                Loops.IsPayBillsCoroutineRunning = false;
         }
-        
-        Color previousColor = GUI.backgroundColor;
-        GUI.backgroundColor = Utils.Config.Instance.IsCustomerPatch ? Color.green : Color.red;
-        if (GUILayout.Button("Customers Smell Patch"))
-        {
-            Utils.Config.Instance.IsCustomerPatch = !Utils.Config.Instance.IsCustomerPatch;
-        }
-        GUI.backgroundColor = previousColor;
-        
-        GUI.backgroundColor = Utils.Config.Instance.IsWorkerPatch ? Color.green : Color.red;
-        if (GUILayout.Button("Worker Stats Patch"))
-        {
-            Utils.Config.Instance.IsWorkerPatch = !Utils.Config.Instance.IsWorkerPatch;
-        }
-        GUI.backgroundColor = previousColor;
-        
-        GUI.backgroundColor = Utils.Config.Instance.IsShopCustomerCountPatch ? Color.green : Color.red;
-        if (GUILayout.Button("Customer Count Patch"))
-        {
-            Utils.Config.Instance.IsShopCustomerCountPatch = !Utils.Config.Instance.IsShopCustomerCountPatch;
-        }
-        GUI.backgroundColor = previousColor;
         GUI.DragWindow();
     }
 
     private void ToggleWindow()
     {
-        showWirndow_ = !showWirndow_;
-        Cursor.visible = showWirndow_;
-        Cursor.lockState = showWirndow_ ? CursorLockMode.None : CursorLockMode.Locked;
+        showWindow_ = !showWindow_;
+        Cursor.visible = showWindow_;
+        Cursor.lockState = showWindow_ ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
     private void OnApplicationQuit()
