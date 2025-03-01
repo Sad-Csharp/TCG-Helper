@@ -9,7 +9,9 @@ public class Config
     private static readonly string ConfigPath = Path.Combine(Directory.GetParent(Application.dataPath)?.FullName ?? string.Empty, "BepInEx", "config", "TCG-Helper.json");
     public bool IsWorkerUpdatePatch { get; set; }
     public bool IsCustomerSmellyPatch{ get; set; }
+    public bool IsCustomerFastPatch { get; set; } = true;
     public bool IsShopCustomerCountPatch { get; set; } = true;
+    public float SetFOV = 60f;
     
     static Config()
     {

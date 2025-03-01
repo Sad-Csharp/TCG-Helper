@@ -13,7 +13,7 @@ public static class Patch
         if (patcher_ != null)
             return;
 
-        patcher_ = new Harmony("modname.patcher");
+        patcher_ = new Harmony("tcghelper.patcher");
         Debug.LogWarning("Patcher initialized.");
     }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TCG_Helper.Utils;
 
-public static class SkinHelper
+public static class UI
 {
     public static GUISkin UniversalSkin;
 
@@ -54,7 +54,7 @@ public static class SkinHelper
         return true;
     }
 
-    public static bool BoolButton(ref bool value, string label, params GUILayoutOption[] options)
+    public static bool ButtonToggle(ref bool value, string label, params GUILayoutOption[] options)
     {
         Color prevColor = GUI.backgroundColor;
         GUI.backgroundColor = value ? Color.green : Color.red;

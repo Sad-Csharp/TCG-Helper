@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace TCG_Helper.Patcher;
 
-[HarmonyPatch]
 public class WorkersPatch
 {
     private static readonly Dictionary<string, float[]> WorkerStats = new();

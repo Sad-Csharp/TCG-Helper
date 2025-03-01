@@ -5,7 +5,6 @@ using TCG_Helper.Utils;
 using UnityEngine;
 using Input = UnityEngine.Input;
 using Patch = TCG_Helper.Patcher.Patch;
-using Skin = TCG_Helper.Utils.SkinHelper;
 
 namespace TCG_Helper;
 
@@ -15,7 +14,6 @@ public class Main : BaseUnityPlugin
     #region Misc
 
     private float setMoneyValue_ = 1000f;
-    private Config instance_;
     
     #endregion
     #region Window
@@ -28,13 +26,12 @@ public class Main : BaseUnityPlugin
     private void Start()
     {
         Debug.Log("TCG-Helper started.");
-        instance_ = Utils.Config.Instance;
-        instance_.TryLoadConfig();
+        Utils.Config.Instance.TryLoadConfig();
         Patch.Init();
         Patch.TryPatch(typeof(WorkersPatch));
         Patch.TryPatch(typeof(CustomersPatch));
-        Skin.TryLoadSkin();
-        windowRect_ = Skin.CenterWindow(windowRect_);
+        UI.TryLoadSkin();
+        windowRect_ = UI.CenterWindow(windowRect_);
     }
 
     private void Update()
@@ -56,8 +53,8 @@ public class Main : BaseUnityPlugin
         if (!showWindow_)
             return;
         
-        if (Skin.UniversalSkin != null)
-            GUI.skin = Skin.UniversalSkin;
+        if (UI.UniversalSkin != null)
+            GUI.skin = UI.UniversalSkin;
         
         windowRect_ = GUILayout.Window(GetHashCode(), windowRect_, DrawWindow, "TCG-Helper");
     }
@@ -71,24 +68,38 @@ public class Main : BaseUnityPlugin
             GUILayout.Label("<b>Patches</b>");
             
             // Customers dont smell patch
-            GUI.backgroundColor = instance_.IsCustomerSmellyPatch ? Color.green : Color.red;
-            instance_.IsCustomerSmellyPatch = GUILayout.Toggle(instance_.IsCustomerSmellyPatch, "Customers Smell Patch");
+            GUI.backgroundColor = Utils.Config.Instance.IsCustomerSmellyPatch ? Color.green : Color.red;
+            Utils.Config.Instance.IsCustomerSmellyPatch = GUILayout.Toggle(Utils.Config.Instance.IsCustomerSmellyPatch, "Customers Smell Patch");
             GUI.backgroundColor = previousColor;
         
             // Workers stats (speed) patch
-            GUI.backgroundColor = instance_.IsWorkerUpdatePatch ? Color.green : Color.red;
-            instance_.IsWorkerUpdatePatch = GUILayout.Toggle(instance_.IsWorkerUpdatePatch, "Worker Update Patch");
+            GUI.backgroundColor = Utils.Config.Instance.IsWorkerUpdatePatch ? Color.green : Color.red;
+            Utils.Config.Instance.IsWorkerUpdatePatch = GUILayout.Toggle(Utils.Config.Instance.IsWorkerUpdatePatch, "Worker Update Patch");
             GUI.backgroundColor = previousColor;
         
             // Shop customer count patch
-            GUI.backgroundColor = instance_.IsShopCustomerCountPatch ? Color.green : Color.red;
-            instance_.IsShopCustomerCountPatch = GUILayout.Toggle(instance_.IsShopCustomerCountPatch, "Shop Customer Count Patch");
+            GUI.backgroundColor = Utils.Config.Instance.IsShopCustomerCountPatch ? Color.green : Color.red;
+            Utils.Config.Instance.IsShopCustomerCountPatch = GUILayout.Toggle(Utils.Config.Instance.IsShopCustomerCountPatch, "Shop Customer Count Patch");
+            GUI.backgroundColor = previousColor;
+            
+            // Customers fast patch
+            GUI.backgroundColor = Utils.Config.Instance.IsCustomerFastPatch ? Color.green : Color.red;
+            Utils.Config.Instance.IsCustomerFastPatch = GUILayout.Toggle(Utils.Config.Instance.IsCustomerFastPatch, "Customers Fast Patch");
             GUI.backgroundColor = previousColor;
         }
         
-        GUILayout.Label($"Add Money: {setMoneyValue_:N0}");
-        Skin.IncrementedSlider(ref setMoneyValue_, 0, 10000, 100);
-        if (GUILayout.Button("Add Money"))
+        GUILayout.Label($"FOV: {Utils.Config.Instance.SetFOV}");
+        if (UI.IncrementedSlider(ref Utils.Config.Instance.SetFOV, 0, 75))
+        {
+            foreach (Camera camera in Camera.allCameras)
+            {
+                camera.fieldOfView = Utils.Config.Instance.SetFOV;
+            }
+        }
+        
+        GUILayout.Label($"Add Coins: {setMoneyValue_:N0}");
+        UI.IncrementedSlider(ref setMoneyValue_, 0, 10000, 100);
+        if (GUILayout.Button("Add Coins"))
         {
             if (setMoneyValue_ != 0f)
             {
@@ -97,6 +108,19 @@ public class Main : BaseUnityPlugin
             }
             else
                 Debug.LogWarning("No value set.");
+        }
+
+        if (GUILayout.Button("Open God Pack"))
+        {
+            CardOpeningSequence openPacks = CardOpeningSequence.Instance;
+
+            if (openPacks == null)
+            {
+                Debug.LogError("CardOpeningSequence is null.");
+                return;
+            }
+            
+            openPacks.OpenScreen(collectionPackType: ECollectionPackType.GhostPack, false);
         }
 
         if (GUILayout.Button("Pay Bills"))
@@ -132,13 +156,13 @@ public class Main : BaseUnityPlugin
             }
         }
 
-        if (Skin.BoolButton(ref Loops.IsCleanCustomersLoopEnabled, "Clean Customers Loop"))
+        if (UI.ButtonToggle(ref Loops.IsCleanCustomersLoopEnabled, "Clean Customers Loop"))
         {
             if (Loops.IsCleanCustomersCoroutineRunning)
                 Loops.IsCleanCustomersCoroutineRunning = false;
         }
         
-        if (Skin.BoolButton(ref Loops.IsPayBillsLoopEnabled, "Pay Bills Loop"))
+        if (UI.ButtonToggle(ref Loops.IsPayBillsLoopEnabled, "Pay Bills Loop"))
         {
             if (Loops.IsPayBillsCoroutineRunning)
                 Loops.IsPayBillsCoroutineRunning = false;

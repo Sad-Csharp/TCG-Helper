@@ -53,7 +53,7 @@ public static class Loops
 
         while (IsCleanCustomersCoroutineRunning)
         {
-            yield return new WaitForSeconds(15f);
+            yield return new WaitForSeconds(10f);
         
             Scene currentScene = SceneManager.GetActiveScene();
 
