@@ -64,4 +64,58 @@ public static class UI
         GUI.backgroundColor = prevColor;
         return clicked;
     }
+
+    public static bool Toggle(ref bool value, GameObject targetObject, string label, params string[] fieldNames)
+    {
+        if (targetObject == null)
+        {
+            Debug.LogError("Target object is null");
+            return false;
+        }
+        
+        Color prevColor = GUI.backgroundColor;
+        GUI.backgroundColor = value ? Color.green : Color.red;
+
+        bool previousValue = value;
+        bool newValue = GUILayout.Toggle(value, label);
+
+        GUI.backgroundColor = prevColor;
+
+        if (newValue == previousValue)
+            return false;
+
+        value = newValue;
+        Debug.Log($"Toggled '{label}' to {value}");
+
+        bool anyFieldModified = false;
+
+        foreach (Component component in targetObject.GetComponents<Component>())
+        {
+            Type type = component.GetType();
+            foreach (string fieldName in fieldNames)
+            {
+                FieldInfo field = type.GetField(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                if (field != null && field.FieldType == typeof(bool))
+                {
+                    field.SetValue(component, !value);
+                    Debug.Log($"Field '{fieldName}' in '{type.Name}' set to {value}");
+                    anyFieldModified = true;
+                    continue;
+                }
+
+                PropertyInfo property = type.GetProperty(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                if (property != null && property.PropertyType == typeof(bool) && property.CanWrite)
+                {
+                    property.SetValue(component, value);
+                    Debug.Log($"Property '{fieldName}' in '{type.Name}' set to {value}");
+                    anyFieldModified = true;
+                }
+            }
+        }
+
+        if (!anyFieldModified)
+            Debug.LogWarning($"No valid boolean fields/properties found for '{label}' in any components.");
+
+        return true;
+    }
 }

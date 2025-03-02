@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BepInEx;
 using TCG_Helper.Patcher;
 using TCG_Helper.Utils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Input = UnityEngine.Input;
 using Patch = TCG_Helper.Patcher.Patch;
 
@@ -13,6 +15,8 @@ public class Main : BaseUnityPlugin
 {
     #region Misc
 
+    private GameObject playerController_;
+    private bool isPlayerDetectingCollisions;
     private float setMoneyValue_ = 1000f;
     
     #endregion
@@ -32,6 +36,30 @@ public class Main : BaseUnityPlugin
         Patch.TryPatch(typeof(CustomersPatch));
         UI.TryLoadSkin();
         windowRect_ = UI.CenterWindow(windowRect_);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (!scene.name.Equals("Start"))
+            return;
+        
+        if (playerController_ != null)
+            return;
+        
+        try
+        {
+            foreach (GameObject obj in SceneManager.GetActiveScene().GetRootGameObjects())
+            {
+                Debug.Log(obj.name);
+                if (obj.name == "FirstPersonController")
+                    playerController_ = obj;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error in Player Controller: " + e.Message);
+        }
     }
 
     private void Update()
@@ -86,6 +114,15 @@ public class Main : BaseUnityPlugin
             GUI.backgroundColor = Utils.Config.Instance.IsCustomerFastPatch ? Color.green : Color.red;
             Utils.Config.Instance.IsCustomerFastPatch = GUILayout.Toggle(Utils.Config.Instance.IsCustomerFastPatch, "Customers Fast Patch");
             GUI.backgroundColor = previousColor;
+
+            if (playerController_ != null)
+            {
+                GUILayout.Label("<b>Player Settings</b>");
+            
+                GUI.backgroundColor = isPlayerDetectingCollisions ? Color.green : Color.red;
+                UI.Toggle(ref isPlayerDetectingCollisions, playerController_, "No Clip", "detectCollisions");
+                GUI.backgroundColor = previousColor;
+            }
         }
         
         GUILayout.Label($"FOV: {Utils.Config.Instance.SetFOV}");

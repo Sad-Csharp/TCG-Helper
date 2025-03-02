@@ -16,8 +16,11 @@ public class WorkersPatch
         if (__instance == null)
             return;
         
+        if (WorkerStats.ContainsKey(__instance.name))
+            return;
+        
         WorkerStats.Add(__instance.name, [__instance.m_GiveChangeTime, __instance.m_ScanItemTime, __instance.m_RestockTime]); 
-        Debug.Log($"Worker {__instance.name} stats: {WorkerStats[__instance.name][0]}, {WorkerStats[__instance.name][1]}, {WorkerStats[__instance.name][2]} cached!");
+        Debug.Log($"{__instance.name} stats: {WorkerStats[__instance.name][0]}, {WorkerStats[__instance.name][1]}, {WorkerStats[__instance.name][2]} cached!");
     }
 
     [HarmonyPatch(typeof(Worker), nameof(Worker.Update))]
@@ -29,9 +32,10 @@ public class WorkersPatch
         
         if (Config.Instance.IsWorkerUpdatePatch)
         {
-            __instance.m_GiveChangeTime = 0.5f;
-            __instance.m_ScanItemTime = 0.5f;
-            __instance.m_RestockTime = 0.5f;
+            __instance.m_GiveChangeTime = 0.3f;
+            __instance.m_ScanItemTime = 0.3f;
+            __instance.m_RestockTime = 0.3f;
+            __instance.m_ExtraSpeedMultiplier = 50f;
         }
         else
         {
