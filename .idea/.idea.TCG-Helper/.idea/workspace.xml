@@ -32,6 +32,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccb000/5c/7fcaffed/CardOpeningSequence.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fb21a0d77b949cc8abdd915527a3faccb000/69/9de994a2/ECollectionPackType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TCG-Helper/Main.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TCG-Helper/Patcher/Patch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TCG-Helper/Patcher/WorkersPatch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TCG-Helper/Utils/Extensions.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -115,6 +116,9 @@
       <workItem from="1740859803279" duration="12795000" />
       <workItem from="1740895940170" duration="8430000" />
       <workItem from="1740946378984" duration="98000" />
+      <workItem from="1740966952835" duration="15000" />
+      <workItem from="1741235693219" duration="426000" />
+      <workItem from="1741236301066" duration="183000" />
     </task>
     <servers />
   </component>

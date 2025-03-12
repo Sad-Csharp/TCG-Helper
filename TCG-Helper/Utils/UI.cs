@@ -106,7 +106,7 @@ public static class UI
                 PropertyInfo property = type.GetProperty(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
                 if (property != null && property.PropertyType == typeof(bool) && property.CanWrite)
                 {
-                    property.SetValue(component, value);
+                    property.SetValue(component, !value);
                     Debug.Log($"Property '{fieldName}' in '{type.Name}' set to {value}");
                     anyFieldModified = true;
                 }

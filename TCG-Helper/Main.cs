@@ -43,6 +43,18 @@ public class Main : BaseUnityPlugin
     {
         if (!scene.name.Equals("Start"))
             return;
+
+        foreach (Camera cam in Camera.allCameras)
+        {
+            if (cam == null)
+                return;
+
+            if (cam.fieldOfView <= Utils.Config.Instance.SetFOV)
+                cam.fieldOfView = Utils.Config.Instance.SetFOV;
+            else if (cam.fieldOfView > Utils.Config.Instance.SetFOV)
+                Utils.Config.Instance.SetFOV = cam.fieldOfView;
+                
+        }
         
         if (playerController_ != null)
             return;
